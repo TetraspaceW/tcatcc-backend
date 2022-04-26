@@ -10,4 +10,6 @@ var signupSchema: Schema = new Schema({
   },
 });
 
+export type SignUpRequest = { email: string; commitment: String };
+
 export default mongoose.model("SignUp", signupSchema);

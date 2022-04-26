@@ -1,7 +1,18 @@
 import { Response, Request } from "express";
+import commitment from "../models/commitment";
+import { createCommitment } from "../services/commitmentService";
 
-export const commitmentList = (req: Request, res: Response) =>
-  res.send("Commitment list: not yet implemented.");
+export const handleCommitmentList = (req: Request, res: Response) => {
+  commitment.find().exec((err, list) => {
+    res.json(list);
+  });
+};
 
-export const createCommitment = (req: Request, res: Response) =>
-  res.send("Create commitment: not yet implemented.");
+export const handleCreateCommitment = (req: Request, res: Response) => {
+  const newCommitment = createCommitment({
+    name: req.body.name,
+    threshold: req.body.threshold,
+    expires: req.body.expires,
+  });
+  res.json(newCommitment);
+};
