@@ -1,11 +1,16 @@
 import { Response, Request } from "express";
-import commitment from "../models/commitment";
-import { createCommitment } from "../services/commitmentService";
+import commitmentRepository from "../models/commitment";
+import { createCommitment, getCommitment } from "../services/commitmentService";
 
 export const handleCommitmentList = (req: Request, res: Response) => {
-  commitment.find().exec((err, list) => {
+  commitmentRepository.find().exec((err, list) => {
     res.json(list);
   });
+};
+
+export const handleGetCommitment = async (req: Request, res: Response) => {
+  const commitment = await getCommitment(req.params.id);
+  res.json(commitment);
 };
 
 export const handleCreateCommitment = (req: Request, res: Response) => {
