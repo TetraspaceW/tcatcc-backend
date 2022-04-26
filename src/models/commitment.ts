@@ -14,6 +14,10 @@ commitmentSchema.virtual("expired").get(function () {
   return Date.now() > expires.getDate();
 });
 
+commitmentSchema.virtual("thresholdMet").get(function () {
+  return this.signups.length >= this.threshold;
+});
+
 export type CommitmentRequest = {
   name: string;
   description?: string;
